@@ -1,6 +1,6 @@
 // Initialize Firebase – replace with your config values
 const config = {
-  apiKey: "AIzaSyC_3CCnRJQGu8IumKHyr39OMoJR3OBF-xs",
+  apiKey: "YOUR_API-KEY",
   authDomain: "YOUR_ID.firebaseapp.com",
   databaseURL: "https://YOUR_ID.firebaseio.com",
   projectId: "YOUR_ID",

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📅 Real Calendar | School Friends Forever</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="calendar.css" />
+</head>
+<body>
+  <header>
+    <h1>📅 School Friends Birthday Calendar</h1>
+    
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="gallery.html">📷 Gallery</a></li>
+        <li><a href="videos.html">🎬 Videos</a></li>
+        <li><a href="calendar.html">📅 Calendar</a></li>
+        <li><a href="game.html">🎮 Game Zone</a></li>
+        <li><a href="chat.html">💬 Chat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button class="nav-btn" onclick="changeMonth(-1)">⬅️</button>
+        <h2 id="monthYear"></h2>
+        <button class="nav-btn" onclick="changeMonth(1)">➡️</button>
+      </div>
+      <div class="calendar-grid" id="calendarDays">
+        <!-- Days will be inserted here -->
+      </div>
+
+      <div class="event-list">
+        <h3>🎂 Upcoming Birthdays & Events</h3>
+        <ul id="eventList">
+          <!-- Events will be listed here -->
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const eventDates = {
+      '2025-01-05': "🎂 Rahul Sharma's Birthday",
+      '2025-06-10': "🎂 Nanja Reddy's Birthday",
+      '2025-06-05': "🎂 Shiva Shankar's Birthday",
+      '2025-08-15': "🎂 Independence Day ",
+      '2025-08-30': "🎂 Babu Reddy K L's Birthday",
+      '2025-10-01': "🎂 Ravi Teja's Birthday",
+      '2025-12-25': "🎉  Christmas Celebration"
+    };
+
+    const calendarDays = document.getElementById('calendarDays');
+    const eventList = document.getElementById('eventList');
+    const monthYear = document.getElementById('monthYear');
+
+    let today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function renderCalendar(month, year) {
+      calendarDays.innerHTML = '';
+      monthYear.textContent = `${today.toLocaleString('default', { month: 'long' })} ${year}`;
+
+      dayNames.forEach(day => {
+        const dayName = document.createElement('div');
+        dayName.className = 'day-name';
+        dayName.textContent = day;
+        calendarDays.appendChild(dayName);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        calendarDays.appendChild(document.createElement('div'));
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const div = document.createElement('div');
+        div.className = 'calendar-day';
+        div.textContent = day;
+
+        if (eventDates[dateStr]) {
+          div.classList.add('has-event');
+          div.title = eventDates[dateStr];
+        }
+
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          div.classList.add('today');
+        }
+
+        calendarDays.appendChild(div);
+      }
+
+      // Update event list
+      eventList.innerHTML = '';
+      Object.entries(eventDates).forEach(([date, desc]) => {
+        const eventDate = new Date(date);
+        if (eventDate.getMonth() === month && eventDate.getFullYear() === year) {
+          const li = document.createElement('li');
+          li.textContent = `${eventDate.getDate()} ${eventDate.toLocaleString('default', { month: 'long' })}: ${desc}`;
+          eventList.appendChild(li);
+        }
+      });
+    }
+
+    function changeMonth(offset) {
+      currentMonth += offset;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      today = new Date(currentYear, currentMonth);
+      renderCalendar(currentMonth, currentYear);
+    }
+
+    renderCalendar(currentMonth, currentYear);
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+/* General Page Styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: #fc8a51;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Navbar */
+nav {
+  background-color: #45a5ee;
+  margin-top: 10px;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 6px;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+nav ul li a:hover,
+nav ul li a.active {
+  background-color: #fa57c6;
+  color: lch(92.13% 81.63 97.62);
+}
+
+/* Main Content */
+main {
+  padding: 30px 15px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Game Sections */
+.game-section {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+.game-section h3 {
+  font-size: 1.5rem;
+  color: #1cdbc5;
+  margin-bottom: 10px;
+}
+.caption {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Tic Tac Toe Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 8px;
+  justify-content: center;
+  margin: 20px 0;
+}
+.square {
+  width: 80px;
+  height: 80px;
+  background-color: #e0e0e0;
+  font-size: 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.square:hover {
+  background-color: #d0d0d0;
+}
+
+/* Game Status and Button */
+.status {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.reset-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.reset-button:hover {
+  background-color: #005fa3;
+}
+
+/* Iframe Games */
+iframe {
+  width: 100%;
+  height: 480px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 15px;
+}
+
+/* Poki Button */
+.poki-button {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  background-color: #ff6600;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+.poki-button:hover {
+  background-color: #e65c00;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: repeat(3, 60px);
+  }
+  .square {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  iframe {
+    height: 320px;
+  }
+}

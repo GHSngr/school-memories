@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎮 Game Zone - School Friends</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #96fc7d;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: #f377bf;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #222;
+      border-radius: 5px;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .game-section {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: 5px;
+      justify-content: center;
+      margin: 1rem auto;
+    }
+
+    .square {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+      background-color: #e0e0e0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .status, .caption {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .reset-button {
+      display: block;
+      margin: 10px auto;
+      padding: 8px 15px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .poki-button {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff6600;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .poki-button:hover {
+      background-color: #e65c00;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎮 School Friends Game Zone</h1>
+      <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="gallery.html">📷 Gallery</a></li>
+        <li><a href="videos.html">🎬 Videos</a></li>
+        <li><a href="calendar.html">📅 Calendar</a></li>
+        <li><a href="game.html">🎮 Game Zone</a></li>
+        <li><a href="chat.html">💬 Chat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Tic Tac Toe -->
+    <div class="game-section">
+      <h3>❌🟢 Tic-Tac-Toe</h3>
+      <div class="status" id="status">Next Player: X</div>
+      <div class="board" id="board"></div>
+      <button class="reset-button" onclick="resetGame()">🔁 Restart Game</button>
+    </div>
+
+    <!-- Poki Games -->
+    <div class="game-section">
+      <h3>🎲 More Fun Games</h3>
+      <p class="caption">Click below to explore 1000s of free games like Subway Surfers, Cricket, Temple Run & more!</p>
+      <a href="https://poki.com" target="_blank" class="poki-button">🔗 Play on Poki.com</a>
+    </div>
+
+    <!-- Memory Game -->
+    <div class="game-section">
+      <h3>🧠 Memory Match Game</h3>
+      <iframe src="https://cdn.htmlgames.com/ClassicMemorize/index.html"></iframe>
+    </div>
+
+    <!-- Snake Game -->
+    <div class="game-section">
+      <h3>🐍 Snake Game</h3>
+      <iframe src="https://playsnake.org/"></iframe>
+    </div>
+    <!-- Poki Games -->
+    <div class="game-section">
+      <h3>🎲 More Fun Games</h3>
+      <p class="caption">Click below to explore 1000s of free games like Subway Surfers, Cricket, Temple Run & more!</p>
+      <a href="https://poki.com" target="_blank" class="poki-button">🔗 Play on Poki.com</a>
+    </div>
+
+  </main>
+
+  <script>
+    const board = document.getElementById("board");
+    const statusDiv = document.getElementById("status");
+    let squares = Array(9).fill(null);
+    let xIsNext = true;
+
+    function renderBoard() {
+      board.innerHTML = "";
+      squares.forEach((val, i) => {
+        const btn = document.createElement("button");
+        btn.className = "square";
+        btn.textContent = val || "";
+        btn.onclick = () => handleClick(i);
+        board.appendChild(btn);
+      });
+      const winner = calculateWinner(squares);
+      statusDiv.textContent = winner ? `Winner: ${winner}` : `Next Player: ${xIsNext ? "X" : "O"}`;
+    }
+
+    function handleClick(i) {
+      if (squares[i] || calculateWinner(squares)) return;
+      squares[i] = xIsNext ? "X" : "O";
+      xIsNext = !xIsNext;
+      renderBoard();
+    }
+
+    function calculateWinner(sq) {
+      const lines = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      for (let [a,b,c] of lines) {
+        if (sq[a] && sq[a] === sq[b] && sq[a] === sq[c]) return sq[a];
+      }
+      return null;
+    }
+
+    function resetGame() {
+      squares = Array(9).fill(null);
+      xIsNext = true;
+      renderBoard();
+    }
+
+    // Initial render
+    renderBoard();
+  </script>
+
+</body>
+</html>

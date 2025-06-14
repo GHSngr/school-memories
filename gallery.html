@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📸 School Memories Gallery</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f87070;
+      color: #4a0fea;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 0.001rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: #9494f4;
+    }
+
+    nav ul li a {
+      color: #090001;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 15px;
+      display: inline-block;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #1d3557;
+      border-radius: 6px;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      cursor: pointer;
+      object-fit: cover;
+      height: 300px;
+    }
+
+    .fullscreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .fullscreen img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .fullscreen.active {
+      display: flex;
+    }
+
+    /* Optional music */
+    .music-player {
+      text-align: center;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎉 Old School Memories - Gallery</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="gallery.html">📷 Gallery</a></li>
+        <li><a href="videos.html">🎬 Videos</a></li>
+        <li><a href="calendar.html">📅 Calendar</a></li>
+        <li><a href="game.html">🎮 Game Zone</a></li>
+        <li><a href="chat.html">💬 Chat</a></li>
+      </ul>
+    </nav>
+  </header>
+ 
+
+  <main>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="images/friends1.jpg" alt="School Day Fun" onclick="openFullscreen(this)" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/friends2.jpg" alt="Annual Day" onclick="openFullscreen(this)" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/friends3.jpg" alt="Classroom" onclick="openFullscreen(this)" />
+      </div>
+      <div class="gallery-item">
+        <img src="images/friends4.jpg" alt="Lunch Break" onclick="openFullscreen(this)" />
+      </div>
+      <!-- Add more photos here -->
+    </div>
+
+    <!-- Optional music -->
+    <div class="music-player">
+      <h3>🎵 Background Music</h3>
+      <audio controls loop autoplay>
+        <source src="music/memories.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </main>
+
+  <!-- Fullscreen Preview -->
+  <div class="fullscreen" id="fullscreen" onclick="closeFullscreen()">
+    <img id="fullscreen-img" src="" alt="Full View" />
+  </div>
+
+  <script>
+    function openFullscreen(img) {
+      const fullscreen = document.getElementById('fullscreen');
+      const fullscreenImg = document.getElementById('fullscreen-img');
+      fullscreenImg.src = img.src;
+      fullscreen.classList.add('active');
+    }
+
+    function closeFullscreen() {
+      document.getElementById('fullscreen').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
